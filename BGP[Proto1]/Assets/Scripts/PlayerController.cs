@@ -9,23 +9,28 @@ public class PlayerController : MonoBehaviour
     public GameObject rightTri;
     public GameObject downTri;
     private string lastPress;
+    private Vector3 vel;
     void Start() { 
     }
 
     void Update(){
-        // Arrow/WASD Control and Triangle Control
+        // Arrow/WASD Control
         if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
+            //If the pressed key is not opposite of last direction
             if (lastPress != "down") {
+                //Set all but the opposite-side-triangle active
                 upTri.SetActive(true);
                 leftTri.SetActive(true);
                 rightTri.SetActive(true);
                 downTri.SetActive(false);
 
+                //If the player is allowed to move in the direction, move one unit
                 if (upTri.GetComponent<SpriteRenderer>().enabled) {
                     transform.Translate(0, 1, 0);
                 }
+                //Set the lastPress variable to the current direction
                 lastPress = "up";
-            } else print("Cannot move up");
+            } else print("Cannot move up"); //Debug
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
             if (lastPress != "right") {

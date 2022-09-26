@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 7133565797786999459, guid: 8462b53d73a61964897e1ea94c9b2bb2, type: 3}
   player: {fileID: 1503263878}
-  xSize: 7
+  xSize: 3
   ySize: 7
 --- !u!4 &1829639937
 Transform:
