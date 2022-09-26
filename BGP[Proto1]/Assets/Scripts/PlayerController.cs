@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
 
                 if (upTri.GetComponent<SpriteRenderer>().enabled) {
                     transform.Translate(0, 1, 0);
-                    lastPress = "up";
                 }
+                lastPress = "up";
             } else print("Cannot move up");
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
 
                 if (leftTri.GetComponent<SpriteRenderer>().enabled) {
                     transform.Translate(-1, 0, 0);
-                    lastPress = "left";
                 }
+                lastPress = "left";
             } else print("Cannot move left");
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
 
                 if (downTri.GetComponent<SpriteRenderer>().enabled) {
                     transform.Translate(0, -1, 0);
-                    lastPress = "down";
                 }
+                lastPress = "down";
             } else print("Cannot move down");
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour
 
                 if (rightTri.GetComponent<SpriteRenderer>().enabled) {
                     transform.Translate(1, 0, 0);
-                    lastPress = "right";
                 }
+                lastPress = "right";
             } else print("Cannot move right");
         }
     }
