@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class AdjacentCheck : MonoBehaviour
 {
-    void Start() {
-        
+    private bool touching;
+
+    private void OnTriggerStay2D(Collider2D collision) {
+        touching = true;
     }
-    void Update() {
-        Debug.DrawRay(transform.position, transform.up, Color.green);
+    private void OnTriggerExit2D(Collider2D collision) {
+        touching = false;
     }
 
-    void ShootRaycast() {
-        RaycastHit2D raycastHit;
+    void Update() {
+        if (touching) {
+            GetComponent<SpriteRenderer>().enabled = true;
+        } else GetComponent<SpriteRenderer>().enabled = false;
     }
 }
