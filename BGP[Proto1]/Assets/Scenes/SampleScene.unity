@@ -437,7 +437,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.26415092, g: 0.088216424, b: 0.22196811, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1139,8 +1139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 7133565797786999459, guid: 8462b53d73a61964897e1ea94c9b2bb2, type: 3}
   player: {fileID: 1503263878}
-  xSize: 3
-  ySize: 7
+  xSize: 7
+  ySize: 5
 --- !u!4 &1829639937
 Transform:
   m_ObjectHideFlags: 0
