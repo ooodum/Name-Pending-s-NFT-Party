@@ -10,7 +10,7 @@ public class Up : MonoBehaviour
 
     void Update() {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
-            transform.localScale = new Vector3(0.25f, 0.25f);
-        } else transform.localScale = new Vector3(0.5f, 0.5f);
+            transform.localScale = new Vector3(10f, 10f);
+        } else transform.localScale = new Vector3(15f, 15f);
     }
 }

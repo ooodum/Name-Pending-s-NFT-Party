@@ -8,10 +8,13 @@ public class TileSpawnManager : MonoBehaviour
     public GameObject player;
     public int xSize;
     public int ySize;
+    public float tileSize;
     void Start(){
+        tile.transform.localScale = new Vector2(tileSize, tileSize);
+        player.transform.localScale = tile.transform.localScale / 2;
         for (int i = (ySize - 1) / 2; i > ((-(ySize - 1)) / 2) - 1; i--) {
             for (int j = (-(xSize - 1)) / 2; j < ((xSize - 1) / 2) + 1; j++) {
-                Instantiate(tile, new Vector3(player.transform.position.x + j, player.transform.position.y + i, 0), tile.transform.rotation);
+                Instantiate(tile, new Vector3(player.transform.position.x + j * tileSize, player.transform.position.y + i * tileSize, 0), tile.transform.rotation);
             }
         }
     }

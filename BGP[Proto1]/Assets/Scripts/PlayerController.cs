@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     //The position where the player will smoothly move to (SD stands for SmoothDamp)
     private Vector3 SDPos;
 
-    //Says whether or not the SmoothDamp is on or off (for performance purposes)
+    //Simple debounce for SmoothDamp function for player movement (for performance purposes)
     private bool SDCheck = false;
 
     //Move speed of SmoothDamp. Lower is faster.
@@ -135,7 +135,6 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             transform.position = Vector2.SmoothDamp(transform.position, SDPos, ref vel, moveSpeed * Time.deltaTime);
             if ((transform.position - SDPos).magnitude < epsilon) {
-                print("done");
                 canMove = true;
                 SDCheck = false;
                 transform.position = SDPos;
