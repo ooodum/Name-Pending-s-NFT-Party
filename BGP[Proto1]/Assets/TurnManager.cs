@@ -23,7 +23,9 @@ public class TurnManager : MonoBehaviour
      
     }
     public void ChangeTurn() {
+        PlayerChildren[turn - 1].transform.Find("Triangles").gameObject.SetActive(false);
         if (turn < 4) turn++; else turn = 1;
         print($"It is now player {turn}'s turn");
+        PlayerChildren[turn-1].transform.Find("Triangles").gameObject.SetActive(true);
     }
 }
