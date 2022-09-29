@@ -9,18 +9,28 @@ public class PlayerController : MonoBehaviour
     public GameObject leftTri;
     public GameObject rightTri;
     public GameObject downTri;
+    public GameObject fourTri;
+
+    //Defines which player it is
+    public int playerInt;
+
+    //References the Game Manager's Turn Manager
+    public TurnManager turnManager;
+
+    //Defines which phase of the turn the player is on (Rolling dice, moving, etc.)
+    public int turnPhase = 1;
+
+    //Reference a tile on the screen
+    public Vector2 tileSize = new Vector2(0.6f, 0.6f);
 
     //The last pressed key (that was a "valid" move)
     private string lastPress;
 
-    //Defines which phase of the turn the player is on (Rolling dice, moving, etc.)
-    private int turnPhase = 1;
+    //The value of the dice roll
+    private int diceRoll;
 
     //Says whether or not the player is allowed to move
     private bool canMove = true;
-
-    //The value of the dice roll
-    private int diceRoll;
 
     //The position where the player will smoothly move to (SD stands for SmoothDamp)
     private Vector3 SDPos;
@@ -38,23 +48,24 @@ public class PlayerController : MonoBehaviour
     private double epsilon = 1.68584e-2;
     void Start() {
         SDPos = transform.position;
-        print("Press space to roll die");
+        transform.localScale = tileSize / 1.5f;
     }
 
     void Update(){
         switch (turnPhase) {
             case 1:
-                if (Input.GetKeyDown(KeyCode.Space)) {
+                if (Input.GetKeyDown(KeyCode.Space) && playerInt == turnManager.turn) {
                     diceRoll = Random.Range(1, 7);
-                    Debug.Log(diceRoll);
-                    turnPhase++;
+                    print(diceRoll);
+                    turnPhase = 2;
                 }
                 break;
             case 2:
-                if (diceRoll > 0 && canMove) {
+                if (diceRoll > 0 && canMove && playerInt == turnManager.turn) {
                     movePlayer();
                 } else if (diceRoll == 0) {
-                    turnPhase--;
+                    turnPhase = 1;
+                    turnManager.ChangeTurn();
                 }
                 break;
             default:
@@ -134,9 +145,11 @@ public class PlayerController : MonoBehaviour
         if (SDCheck) {
             canMove = false;
             transform.position = Vector2.SmoothDamp(transform.position, SDPos, ref vel, moveSpeed * Time.deltaTime);
+            fourTri.SetActive(false);
             if ((transform.position - SDPos).magnitude < epsilon) {
                 canMove = true;
                 SDCheck = false;
+                fourTri.SetActive(true);
                 transform.position = SDPos;
             }
         }
