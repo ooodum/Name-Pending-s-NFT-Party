@@ -64,9 +64,11 @@ public class PlayerController : MonoBehaviour
                 if (diceRoll > 0 && canMove && playerInt == turnManager.turn) {
                     movePlayer();
                 } else if (diceRoll == 0) {
-                    turnPhase = 1;
+                    turnPhase = 3;
                     turnManager.ChangeTurn();
                 }
+                break;
+            case 3:
                 break;
             default:
                 break;
@@ -147,10 +149,12 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector2.SmoothDamp(transform.position, SDPos, ref vel, moveSpeed * Time.deltaTime);
             fourTri.SetActive(false);
             if ((transform.position - SDPos).magnitude < epsilon) {
-                canMove = true;
                 SDCheck = false;
-                fourTri.SetActive(true);
-                transform.position = SDPos;
+                if (playerInt == turnManager.turn) {
+                    canMove = true;
+                    fourTri.SetActive(true);
+                    transform.position = SDPos;
+                }
             }
         }
     }
