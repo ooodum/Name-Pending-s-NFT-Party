@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     public int turnPhase = 1;
 
     //Reference a tile on the screen
-    public Vector2 tileSize = new Vector2(0.6f, 0.6f);
+    [SerializeField] private Vector2 tileSize = new Vector2(0.6f, 0.6f);
+    private float boardSize = 2f;
 
     //The last pressed key (that was a "valid" move)
     private string lastPress;
@@ -46,9 +47,13 @@ public class PlayerController : MonoBehaviour
 
     //A value that is compared against the magnitude of the position of the player and SDPos (for performance purposes)
     private double epsilon = 1.68584e-2;
+
+    //A simple debounce to ensure the IEnumerator works properly since it's in the update function.
+    private bool turnChangeDebounce = true;
+
     void Start() {
         SDPos = transform.position;
-        transform.localScale = tileSize / 1.5f;
+        transform.localScale = (tileSize / 1.5f )* boardSize;
     }
 
     void Update(){
@@ -64,11 +69,15 @@ public class PlayerController : MonoBehaviour
                 if (diceRoll > 0 && canMove && playerInt == turnManager.turn) {
                     movePlayer();
                 } else if (diceRoll == 0) {
-                    turnPhase = 3;
-                    turnManager.ChangeTurn();
+                    if (turnChangeDebounce) {
+                        turnChangeDebounce = false;
+                        StartCoroutine(WaitUntilTurnChange(0.75f));
+                    }
                 }
                 break;
             case 3:
+                turnManager.ChangeTurn();
+                turnPhase = 1;
                 break;
             default:
                 break;
@@ -139,7 +148,7 @@ public class PlayerController : MonoBehaviour
                 print(diceRoll);
                 
                 lastPress = "right";
-            } 
+            }
         }
     }
 
@@ -150,12 +159,18 @@ public class PlayerController : MonoBehaviour
             fourTri.SetActive(false);
             if ((transform.position - SDPos).magnitude < epsilon) {
                 SDCheck = false;
+                canMove = true;
+                transform.position = SDPos;
                 if (playerInt == turnManager.turn) {
-                    canMove = true;
                     fourTri.SetActive(true);
-                    transform.position = SDPos;
                 }
             }
         }
+    }
+
+    IEnumerator WaitUntilTurnChange(float sec) {
+        yield return new WaitForSeconds(sec);
+        turnPhase = 3;
+        turnChangeDebounce = true;
     }
 }
