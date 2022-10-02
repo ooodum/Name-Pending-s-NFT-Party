@@ -55,67 +55,99 @@ public class PlayerController : MonoBehaviour
     //A simple debounce to ensure the IEnumerator works properly since it's in the update function.
     private bool turnChangeDebounce = true;
 
-    //Reference Side Text
+    //Reference Side Text (A little popup on the side that appears whenever the player needs to do an action)
     public TextMeshProUGUI sideText;
 
     //Says whether or not the side text needs to be visible
     public bool sideTextNeeded = false;
 
     void Start() {
+        //Sets position to the player
         SDPos = transform.position;
+
+        //Set the size of the player according to the size of the tile.
         transform.localScale = (tileSize / 1.5f )* boardSize;
     }
 
     void Update(){
+        //A switch for which phase of a player's turn it is.
         switch (turnPhase) {
+            //Phase 1: Press space to roll
             case 1:
+                //Enable the sidebar and tell the player to press space to roll dice
                 sideText.text = ("Press space to roll");
                 sideTextNeeded = true;
+
+                //If the player presses the spacebar and it's the player's turn:
                 if (Input.GetKeyDown(KeyCode.Space) && playerInt == turnManager.turn) {
+                    //Roll the dice and move on to Phase 2
                     diceRoll = Random.Range(1, 7);
                     print(diceRoll);
                     turnPhase = 2;
                 }
                 break;
+            //Phase 2: Player is allowed to move and do actions
             case 2:
+                //Turn off the sidebar
                 sideTextNeeded = false;
+
+                //If the dice hasn't reached zero yet, the player is allowed to move, and it's the player's turn:
                 if (diceRoll > 0 && canMove && playerInt == turnManager.turn) {
+                    //If the player comes by a shop:
                     if (currentTile.name == "Shop") {
+                        //Enable the sidebar to tell the player to press space to open the shop if they want to.
                         sideText.text = ("Press space to open shop");
                         sideTextNeeded = true;
+                        //If the spacebar is pressed while standing on a shop, move on to Phase 10
                         if (Input.GetKeyDown(KeyCode.Space)) {
                             turnPhase = 10;
                         }
                     }
+                    //Calls the movePlayer function
                     movePlayer();
+
+                //When the dice finally reaches zero, and animations have finished
                 } else if (diceRoll == 0 && !SDCheck) {
+                    //Turn off the four triangles
                     fourTri.SetActive(false);
+                    //If the player happens to come to a shop on their last step of the dice:
                     if (currentTile.name == "Shop") {
+                        //Enable the sidebar and tell the player to open the shop or skip turn
                         sideText.text = ("Press space to open shop or enter to skip");
                         sideTextNeeded = true;
+                        //If the player presses space, move on to Phase 10
                         if (Input.GetKeyDown(KeyCode.Space)) {
                             turnPhase = 10;
                         }
+                        //If the player wants to skip their turn, the enter key will move them on to Phase 3
                         if (Input.GetKeyDown(KeyCode.Return)) turnPhase = 3;
                     } else turnPhase = 3;
                 }
                 break;
             case 3:
+                //Wait 0.25 seconds, then move on to Phase 4
                 if (turnChangeDebounce) {
                     turnChangeDebounce = false;
                     StartCoroutine(WaitUntilTurnChange(0.25f));
                 }
                 break;
             case 4:
+                //Ask the Turn Manager to move on to the next player's turn
                 turnManager.ChangeTurn();
+                //Makes sure that no turn phases are active
                 turnPhase = -1;
                 break;
             case 10:
+                //Disable the four triangles
                 fourTri.SetActive(false);
+                //Let the player know they can close the shop by pressing the spacebar
                 sideText.text = ("Press space to close shop");
                 sideTextNeeded = true;
+                //Close the shop if the player presses space
                 if (Input.GetKeyDown(KeyCode.Space)) {
+                    //Go back to phase 2
                     turnPhase = 2;
+                    //If the player can still move after closing the shop, enable the four triangles again
                     if (diceRoll > 0) fourTri.SetActive(true);
                 } 
                 break;
@@ -124,6 +156,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Function for player movement
     void movePlayer() {
         // Arrow/WASD Control
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && upTri.GetComponent<SpriteRenderer>().enabled) {
@@ -135,8 +168,11 @@ public class PlayerController : MonoBehaviour
                 rightTri.SetActive(true);
                 downTri.SetActive(false);
 
+                //Sets the position to the tile the player is about to go to
                 SDPos = upTri.GetComponent<AdjacentCheck>().tile.transform.position;
+                //Checks if the player hasn't reached its destination
                 SDCheck = (transform.position.y < upTri.GetComponent<AdjacentCheck>().tile.transform.position.y);
+
                 //Dice decrement
                 diceRoll--;
                 print(diceRoll);
@@ -185,31 +221,44 @@ public class PlayerController : MonoBehaviour
                 SDPos = rightTri.GetComponent<AdjacentCheck>().tile.transform.position;
                 SDCheck = (transform.position.x < rightTri.GetComponent<AdjacentCheck>().tile.transform.position.x);
                 diceRoll--;
-                print(diceRoll);
                 
                 lastPress = "right";
             }
         }
     }
 
+    //Use FixedUpdate to prevent jittering due to animation
     void FixedUpdate() {
+        //If the player hasn't reached it's destination:
         if (SDCheck) {
+            //Don't allow the player to input while the player is moving to the tile
             canMove = false;
+            //Smoothly move the player to the next tile
             transform.position = Vector2.SmoothDamp(transform.position, SDPos, ref vel, moveSpeed);
+            //While the player is moving, disable the four triangles
             fourTri.SetActive(false);
+            //If the player's position is close enough to the tile:
             if ((transform.position - SDPos).magnitude < epsilon) {
+                //Turn off the smoothdamp (to save resources)
                 SDCheck = false;
+                //Allow the player to input again
                 canMove = true;
+                //Snap the player's position to the tile
                 transform.position = SDPos;
+                //If the player is still in their moving/input phase, turn on the triangles again
                 if (turnPhase == 2) {
                     fourTri.SetActive(true);
                 }
             }
         }
     }
+
+    //Sets the currentTile to whatever tile the player is standing on
     private void OnTriggerStay2D(Collider2D collision) {
         currentTile = collision;
     }
+
+    //Wait an amount of time before ending the player's turn
     IEnumerator WaitUntilTurnChange(float sec) {
         yield return new WaitForSeconds(sec);
             turnPhase = 4;

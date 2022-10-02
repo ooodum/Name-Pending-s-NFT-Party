@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    //
     public GameObject player;
-    private float dampeningTime = 0.9f;
+    private float dampeningTime = 0.1f;
     private Vector3 vel = Vector3.zero;
     void Start() {
         

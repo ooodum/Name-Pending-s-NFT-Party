@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class TileSpawnManager : MonoBehaviour
 {
+    //Reference the tile and the player
     public GameObject tile;
     public GameObject player;
+
+    //Gets the size of the tile
     public int xSize;
     public int ySize;
     public float tileSize;
