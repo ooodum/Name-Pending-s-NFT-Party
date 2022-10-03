@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public GameObject downTri;
     public GameObject fourTri;
 
+    //References the PlayerETHManager script
+    [SerializeField] private PlayerETHManager ETHManager;
+
     //Defines which player it is
     public int playerInt;
 
@@ -62,6 +65,7 @@ public class PlayerController : MonoBehaviour
     public bool sideTextNeeded = false;
 
     void Start() {
+
         //Sets position to the player
         SDPos = transform.position;
 
@@ -74,6 +78,8 @@ public class PlayerController : MonoBehaviour
         switch (turnPhase) {
             //Phase 1: Press space to roll
             case 1:
+                //Enable player icon glow
+                ETHManager.glow.SetActive(true);
                 //Enable the sidebar and tell the player to press space to roll dice
                 sideText.text = ("Press space to roll");
                 sideTextNeeded = true;
@@ -82,7 +88,6 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) && playerInt == turnManager.turn) {
                     //Roll the dice and move on to Phase 2
                     diceRoll = Random.Range(1, 7);
-                    print(diceRoll);
                     turnPhase = 2;
                 }
                 break;
@@ -134,6 +139,8 @@ public class PlayerController : MonoBehaviour
             case 4:
                 //Ask the Turn Manager to move on to the next player's turn
                 turnManager.ChangeTurn();
+                //Turn off player glow
+                ETHManager.glow.SetActive(false);
                 //Makes sure that no turn phases are active
                 turnPhase = -1;
                 break;
@@ -206,7 +213,6 @@ public class PlayerController : MonoBehaviour
                 SDPos = downTri.GetComponent<AdjacentCheck>().tile.transform.position;
                 SDCheck = (transform.position.y > downTri.GetComponent<AdjacentCheck>().tile.transform.position.y);
                 diceRoll--;
-                print(diceRoll);
 
                 lastPress = "down";
             }

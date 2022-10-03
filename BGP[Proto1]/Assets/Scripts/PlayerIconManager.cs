@@ -28,6 +28,7 @@ public class PlayerIconManager : MonoBehaviour
             //Create and place the player icon accordingly
             playerIconList.Add(Instantiate(playerIcon,transform));
             playerIconList[i].GetComponent<RectTransform>().localPosition = new Vector2(centering,0);
+            playerIconList[i].name = $"Player {i+1} Icon";
         }
     }
 

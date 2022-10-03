@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - ETH
+  - PlayerIcons
+  - PlayerGlow
   layers:
   - Default
   - TransparentFX
