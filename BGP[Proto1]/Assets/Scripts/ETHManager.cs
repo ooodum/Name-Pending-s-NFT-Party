@@ -7,21 +7,25 @@ public class ETHManager : MonoBehaviour
     //Reference the board and the ETH prefab
     [SerializeField] private GameObject board;
     [SerializeField] private GameObject ETH;
+    public int numOfETH;
 
     //Create a list that stores all the "normal" tiles (Not a shop tile, not a spawn tile)
     List<GameObject> listOfTiles = new List<GameObject>();
     void Start() {
         ReferenceTiles();
         //Spawn 10 ETH pickups
-        SpawnETH(10);
+        SpawnETH(20);
     }
 
     void Update() {
-        
+        if (numOfETH == 0) {
+            SpawnETH(20);
+        }
     }
 
     //Function to randomly spawn ETH throughout the map
     public void SpawnETH(int amount) {
+        numOfETH = amount;
         //Loops through "amount" times
         for (int i = 0; i < amount; i++) {
             //Generates a random number from 0 to the amount of normal tiles there are minus one

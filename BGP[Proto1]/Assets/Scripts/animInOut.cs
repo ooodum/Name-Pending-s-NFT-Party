@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimInOut : MonoBehaviour {
+public class animInOut : MonoBehaviour {
     //References all four players' player controller
     [SerializeField] private PlayerController p1Text;
     [SerializeField] private PlayerController p2Text;

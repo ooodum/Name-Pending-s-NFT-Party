@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public GameObject fourTri;
 
     //References the PlayerETHManager script
-    [SerializeField] private PlayerETHManager ETHManager;
+    public PlayerETHManager ETHManager;
 
     //Reference the textbox
     [SerializeField] private GameObject textbox;
@@ -89,13 +89,13 @@ public class PlayerController : MonoBehaviour
                 //Enable player icon glow
                 ETHManager.glow.SetActive(true);
                 //Enable the sidebar and tell the player to press space to roll dice
-                sideText.text = ("Press space to roll");
+                sideText.text = ("SPACE to roll");
                 sideTextNeeded = true;
 
                 //If the player presses the spacebar and it's the player's turn:
                 if (Input.GetKeyDown(KeyCode.Space) && playerInt == turnManager.turn) {
                     //Roll the dice and move on to Phase 2
-                    diceRoll = Random.Range(1, 200);
+                    diceRoll = Random.Range(1, 7);
                     turnPhase = 2;
                 }
                 break;
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
                     //If the player comes by a shop:
                     if (currentTile.name == "Shop") {
                         //Enable the sidebar to tell the player to press space to open the shop if they want to.
-                        sideText.text = ("Press space to open shop");
+                        sideText.text = ("SPACE to open shop");
                         sideTextNeeded = true;
                         //If the spacebar is pressed while standing on a shop, move on to Phase 10
                         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
                     //If the player happens to come to a shop on their last step of the dice:
                     if (currentTile.name == "Shop") {
                         //Enable the sidebar and tell the player to open the shop or skip turn
-                        sideText.text = ("Press space to open shop or enter to skip");
+                        sideText.text = ("SPACE to open shop or ENTER to skip");
                         sideTextNeeded = true;
                         //If the player presses space, move on to Phase 10
                         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
                 shopManager.ShopAnimIn();
                 shopManager.lastAnim = "ShopAnimIn";
                 //Let the player know they can close the shop by pressing the spacebar
-                sideText.text = ("Press space to close shop");
+                sideText.text = ("SPACE to close shop");
                 sideTextNeeded = true;
                 //Close the shop if the player presses space
                 if (Input.GetKeyDown(KeyCode.Space)) {

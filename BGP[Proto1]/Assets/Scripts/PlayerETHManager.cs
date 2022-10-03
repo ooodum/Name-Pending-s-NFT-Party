@@ -9,6 +9,7 @@ public class PlayerETHManager : MonoBehaviour
 
     //References the Player Icons GameObject
     [SerializeField] private GameObject playerIcon;
+    [SerializeField] private ETHManager ethManager;
     private TextMeshProUGUI playerIconText;
     private TextMeshProUGUI ETHText;
     public GameObject glow;
@@ -32,6 +33,7 @@ public class PlayerETHManager : MonoBehaviour
             Destroy(collision.gameObject);
             ETH += Mathf.Floor((Random.Range(0.1f, 0.3f))*100)/100;
             ETHText.text = $"{ETH} ETH";
+            ethManager.numOfETH--;
         }
     }
 }
