@@ -10,19 +10,32 @@ public class AnimInOut : MonoBehaviour {
     [SerializeField] private PlayerController p4Text;
 
     //Two positions; when the textbox is visible, and when the textbox isn't (I figured hardcoded values here were okay because they're part of the canvas)
-    private Vector3 outPos = new Vector3(258, 302, 0);
-    private Vector3 inPos = new Vector3(-218, 302, 0);
+    private Vector3 outPos = new Vector3(258, 100, 0);
+    private Vector3 inPos = new Vector3(-218, 100, 0);
+
+    //Gets the last animation
+    private string lastAnim = null;
 
     void Update() {
         //If any player enables the sidebar:
-        if (p1Text.sideTextNeeded || p2Text.sideTextNeeded || p3Text.sideTextNeeded || p4Text.sideTextNeeded) AnimIn();
-        else AnimOut();
+        if (p1Text.sideTextNeeded || p2Text.sideTextNeeded || p3Text.sideTextNeeded || p4Text.sideTextNeeded) {
+            AnimIn();
+            lastAnim = "AnimIn";
+        } else {
+            AnimOut();
+            lastAnim = "AnimOut";
+        }
     }
-    void AnimIn() {
-        LeanTween.moveX(gameObject.GetComponent<RectTransform>(), outPos.x, 0.5f);
-        print(LeanTween.moveX(gameObject.GetComponent<RectTransform>(), outPos.x, 0.5f));
+    public void AnimIn() {
+        if (lastAnim != "AnimIn") {
+            LeanTween.cancel(gameObject);
+            LeanTween.move(gameObject.GetComponent<RectTransform>(), outPos, 1f).setEaseOutCirc();
+        }
     }
-    void AnimOut() {
-        LeanTween.moveX(gameObject.GetComponent<RectTransform>(), inPos.x, 0.5f);
+    public void AnimOut() {
+        if (lastAnim != "AnimOut") {
+            LeanTween.cancel(gameObject);
+            LeanTween.move(gameObject.GetComponent<RectTransform>(), inPos, 1f).setEaseOutCirc();
+        }
     }
 }

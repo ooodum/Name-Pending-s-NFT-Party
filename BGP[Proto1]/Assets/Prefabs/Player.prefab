@@ -230,6 +230,7 @@ MonoBehaviour:
   down: {fileID: 6929304384916660428}
   text: {fileID: 1960447743192415945}
   player: {fileID: 0}
+  animDone: 0
 --- !u!1 &5082083378067818129
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +670,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   sideText: {fileID: 0}
   sideTextNeeded: 0
+  textbox: {fileID: 3788983225852564293}
 --- !u!61 &3418640205706128790
 BoxCollider2D:
   m_ObjectHideFlags: 0

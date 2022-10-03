@@ -15,11 +15,17 @@ public class PlayerController : MonoBehaviour
     //References the PlayerETHManager script
     [SerializeField] private PlayerETHManager ETHManager;
 
+    //Reference the textbox
+    [SerializeField] private GameObject textbox;
+
     //Defines which player it is
     public int playerInt;
 
     //References the Game Manager's Turn Manager
     public TurnManager turnManager;
+
+    //References the Shop Manager's Shop Manager
+    public ShopManager shopManager;
 
     //Defines which phase of the turn the player is on (Rolling dice, moving, etc.)
     public int turnPhase = -1;
@@ -64,6 +70,8 @@ public class PlayerController : MonoBehaviour
     //Says whether or not the side text needs to be visible
     public bool sideTextNeeded = false;
 
+    
+
     void Start() {
 
         //Sets position to the player
@@ -87,7 +95,7 @@ public class PlayerController : MonoBehaviour
                 //If the player presses the spacebar and it's the player's turn:
                 if (Input.GetKeyDown(KeyCode.Space) && playerInt == turnManager.turn) {
                     //Roll the dice and move on to Phase 2
-                    diceRoll = Random.Range(1, 7);
+                    diceRoll = Random.Range(1, 200);
                     turnPhase = 2;
                 }
                 break;
@@ -97,7 +105,7 @@ public class PlayerController : MonoBehaviour
                 sideTextNeeded = false;
 
                 //If the dice hasn't reached zero yet, the player is allowed to move, and it's the player's turn:
-                if (diceRoll > 0 && canMove && playerInt == turnManager.turn) {
+                if (diceRoll > 0 && canMove && textbox.GetComponent<TextBoxManager>().animDone && playerInt == turnManager.turn) {
                     //If the player comes by a shop:
                     if (currentTile.name == "Shop") {
                         //Enable the sidebar to tell the player to press space to open the shop if they want to.
@@ -147,11 +155,17 @@ public class PlayerController : MonoBehaviour
             case 10:
                 //Disable the four triangles
                 fourTri.SetActive(false);
+                //Open the shop UI
+                shopManager.ShopAnimIn();
+                shopManager.lastAnim = "ShopAnimIn";
                 //Let the player know they can close the shop by pressing the spacebar
                 sideText.text = ("Press space to close shop");
                 sideTextNeeded = true;
                 //Close the shop if the player presses space
                 if (Input.GetKeyDown(KeyCode.Space)) {
+                    //Close the shop
+                    shopManager.ShopAnimOut();
+                    shopManager.lastAnim = "ShopAnimOut";
                     //Go back to phase 2
                     turnPhase = 2;
                     //If the player can still move after closing the shop, enable the four triangles again
