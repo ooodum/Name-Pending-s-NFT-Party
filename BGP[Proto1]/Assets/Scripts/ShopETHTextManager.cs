@@ -17,6 +17,6 @@ public class ShopETHTextManager : MonoBehaviour {
     }
 
     void Update() {
-        ETHText.text = $"{playerList[turnManager.turn - 1].ETH} ETH";
+        ETHText.text = $"{(Mathf.Round(playerList[turnManager.turn - 1].ETH*100))/100} ETH";
     }
 }

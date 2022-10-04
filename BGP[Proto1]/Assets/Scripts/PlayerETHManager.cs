@@ -31,7 +31,7 @@ public class PlayerETHManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("ETH")) {
             Destroy(collision.gameObject);
-            ETH += Mathf.Floor((Random.Range(0.1f, 0.3f))*100)/100;
+            ETH += Mathf.Round((Random.Range(0.1f, 0.3f))*100)/100;
             ETHText.text = $"{ETH} ETH";
             ethManager.numOfETH--;
         }

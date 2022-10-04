@@ -8,7 +8,10 @@ public class TurnManager : MonoBehaviour
     public int turn;
 
     //Creates a list that stores the players added to the game
-    List<GameObject> PlayerChildren = new List<GameObject>();
+    public List<GameObject> PlayerChildren = new List<GameObject>();
+
+    //References the Shop Pool to refresh the pool
+    [SerializeField] private ShopPool shopPool;
 
     //References the player and the camera
     public GameObject players;
@@ -54,5 +57,9 @@ public class TurnManager : MonoBehaviour
         PlayerChildren[turn - 1].GetComponent<PlayerController>().turnPhase = 1;
         //Enable their triangles
         PlayerChildren[turn-1].transform.Find("Triangles").gameObject.SetActive(true);
+        //Refresh the NFT pool
+        shopPool.RefreshNFTShopPool();
+        //Set the inventory bar
+        PlayerChildren[turn - 1].GetComponent<PlayerInventoryManager>().SetInventory();
     }
 }

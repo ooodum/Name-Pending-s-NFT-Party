@@ -5,16 +5,11 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public Collider2D currentPiece;
-    void Start() {
-        
-    }
-
-    void Update() {
-        
-    }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        currentPiece = collision;
+        if (collision.CompareTag("Player")) {
+            currentPiece = collision;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {

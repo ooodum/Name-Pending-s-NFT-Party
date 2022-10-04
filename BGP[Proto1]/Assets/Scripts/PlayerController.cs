@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     //Reference each of the four triangles surrounding the player
     public GameObject upTri;
     public GameObject leftTri;
     public GameObject rightTri;
     public GameObject downTri;
     public GameObject fourTri;
+
+    //Reference each player
+    [SerializeField] private GameObject p1;
+    [SerializeField] private GameObject p2;
+    [SerializeField] private GameObject p3;
+    [SerializeField] private GameObject p4;
 
     //References the PlayerETHManager script
     public PlayerETHManager ETHManager;
@@ -53,7 +58,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider2D currentTile;
 
     //Move speed of SmoothDamp. Lower is faster.
-    private float moveSpeed = 0.2f;
+    private float moveSpeed = 0.1f;
 
     //Used for SmoothDamp
     private Vector2 vel = Vector2.zero;
@@ -70,6 +75,11 @@ public class PlayerController : MonoBehaviour
     //Says whether or not the side text needs to be visible
     public bool sideTextNeeded = false;
 
+    //Get the player you're about to collide with
+    [SerializeField] private GameObject otherPlayer;
+
+    //References the Screenshot Manager
+    [SerializeField] ScreenshotManager screenshotManager;
     
 
     void Start() {
@@ -141,7 +151,7 @@ public class PlayerController : MonoBehaviour
                 //Wait 0.25 seconds, then move on to Phase 4
                 if (turnChangeDebounce) {
                     turnChangeDebounce = false;
-                    StartCoroutine(WaitUntilTurnChange(0.25f));
+                    StartCoroutine(WaitUntilTurnChange(0.35f));
                 }
                 break;
             case 4:
@@ -172,6 +182,10 @@ public class PlayerController : MonoBehaviour
                     if (diceRoll > 0) fourTri.SetActive(true);
                 } 
                 break;
+            case 11:
+                screenshotManager.ScreenshotPlayer();
+                StopAllCoroutines();
+                break;
             default:
                 break;
         }
@@ -196,10 +210,11 @@ public class PlayerController : MonoBehaviour
 
                 //Dice decrement
                 diceRoll--;
-                print(diceRoll);
 
                 //Set the lastPress variable to the current direction
                 lastPress = "up";
+
+                
             }
         }
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && leftTri.GetComponent<SpriteRenderer>().enabled) {
@@ -212,7 +227,6 @@ public class PlayerController : MonoBehaviour
                 SDPos = leftTri.GetComponent<AdjacentCheck>().tile.transform.position;
                 SDCheck = (transform.position.x > leftTri.GetComponent<AdjacentCheck>().tile.transform.position.x);
                 diceRoll--;
-                print(diceRoll);
 
                 lastPress = "left";
             } 
@@ -241,7 +255,7 @@ public class PlayerController : MonoBehaviour
                 SDPos = rightTri.GetComponent<AdjacentCheck>().tile.transform.position;
                 SDCheck = (transform.position.x < rightTri.GetComponent<AdjacentCheck>().tile.transform.position.x);
                 diceRoll--;
-                
+
                 lastPress = "right";
             }
         }
@@ -280,8 +294,8 @@ public class PlayerController : MonoBehaviour
 
     //Wait an amount of time before ending the player's turn
     IEnumerator WaitUntilTurnChange(float sec) {
-        yield return new WaitForSeconds(sec);
-            turnPhase = 4;
-            turnChangeDebounce = true;           
+        yield return new WaitForSeconds(sec/2);
+        turnPhase = 4;
+        turnChangeDebounce = true;           
     }
 }

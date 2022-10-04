@@ -14,12 +14,12 @@ public class ETHManager : MonoBehaviour
     void Start() {
         ReferenceTiles();
         //Spawn 10 ETH pickups
-        SpawnETH(20);
+        SpawnETH(30);
     }
 
     void Update() {
         if (numOfETH == 0) {
-            SpawnETH(20);
+            SpawnETH(30);
         }
     }
 
@@ -30,9 +30,14 @@ public class ETHManager : MonoBehaviour
         for (int i = 0; i < amount; i++) {
             //Generates a random number from 0 to the amount of normal tiles there are minus one
             int tileIndex = Random.Range(0, listOfTiles.Count);
-            //Creates an ETH pickup at the random tile's position, then removes that tile from the list
-            Instantiate(ETH, listOfTiles[tileIndex].transform.position, ETH.transform.rotation);
-            listOfTiles.RemoveAt(tileIndex);
+            //If the selected tile is empty:
+            if (listOfTiles[tileIndex].GetComponent<Tile>().currentPiece == null) {
+                //Creates an ETH pickup at the random tile's position, then removes that tile from the list
+                Instantiate(ETH, listOfTiles[tileIndex].transform.position - (Vector3.up * 0.05f), ETH.transform.rotation);
+                listOfTiles.RemoveAt(tileIndex);
+            } else {
+                i--;
+            }
         }
         //Clear the list and create it again
         listOfTiles.Clear();

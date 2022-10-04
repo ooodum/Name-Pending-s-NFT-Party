@@ -47,7 +47,7 @@ public class TextBoxManager : MonoBehaviour {
         if (lastAnim != "AnimIn") {
             animDone = false;
             //Move the textbox to the bottom position
-            LeanTween.moveY(gameObject, down.transform.position.y, 0.75f).setEaseOutCirc();
+            LeanTween.moveY(gameObject, down.transform.position.y, 0.5f).setEaseOutCirc();
             LeanTween.alpha(gameObject, 1, 0.2f).setEaseOutExpo();
             AnimTextTransparency(text, 0, 1, 0.1f, 0);
         }
