@@ -21,8 +21,8 @@ public class PlayerChoiceSelection : MonoBehaviour {
     private bool sold3;
     private void Start() {
         if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-        if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-        if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+        if (container2.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+        if (container3.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
     }
     private void Update() {
         if (canSelect) {
@@ -125,7 +125,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         }
                         break;
                     case 2:
-                        if (!sold1) {
+                        if (!sold2) {
                             if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container2.GetComponent<ShopSelection>().price) {
                                 turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container2.GetComponent<ShopSelection>().price);
 
@@ -148,7 +148,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         }
                         break;  
                     case 3:
-                        if (!sold1) {
+                        if (!sold3) {
                             if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container3.GetComponent<ShopSelection>().price) {
                                 turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container3.GetComponent<ShopSelection>().price);
 
@@ -185,7 +185,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
     public void ActivateChoiceSelection() {
         LeanTween.cancel(container1);
         LeanTween.cancel(container2);
-        LeanTween.cancel(container3);
+        LeanTween.cancel(container3);   
         canSelect = true;
         currentChoice = 2;
         if (NFTManager.NFTList[container1.GetComponent<ShopSelection>().thisNFTIndex].owner == turnManager.PlayerChildren[turnManager.turn - 1]) {

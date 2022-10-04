@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour {
 
     //References the Screenshot Manager
     [SerializeField] ScreenshotManager screenshotManager;
+    [SerializeField] PlayerSpawn playerSpawn;
     
 
     void Start() {
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour {
                     //If the player comes by a shop:
                     if (currentTile.name == "Shop") {
                         //Enable the sidebar to tell the player to press space to open the shop if they want to.
-                        sideText.text = ("SPACE to open shop");
+                        sideText.text = ("SPACE to buy");
                         sideTextNeeded = true;
                         //If the spacebar is pressed while standing on a shop, move on to Phase 10
                         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -136,7 +137,7 @@ public class PlayerController : MonoBehaviour {
                     //If the player happens to come to a shop on their last step of the dice:
                     if (currentTile.name == "Shop") {
                         //Enable the sidebar and tell the player to open the shop or skip turn
-                        sideText.text = ("SPACE to open shop or ENTER to skip");
+                        sideText.text = ("SPACE to buy or ENTER to end turn");
                         sideTextNeeded = true;
                         //If the player presses space, move on to Phase 10
                         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -151,7 +152,7 @@ public class PlayerController : MonoBehaviour {
                 //Wait 0.25 seconds, then move on to Phase 4
                 if (turnChangeDebounce) {
                     turnChangeDebounce = false;
-                    StartCoroutine(WaitUntilTurnChange(0.35f));
+                    StartCoroutine(WaitUntilTurnChange(0.45f));
                 }
                 break;
             case 4:
@@ -294,8 +295,12 @@ public class PlayerController : MonoBehaviour {
 
     //Wait an amount of time before ending the player's turn
     IEnumerator WaitUntilTurnChange(float sec) {
-        yield return new WaitForSeconds(sec/2);
-        turnPhase = 4;
+        yield return new WaitForSeconds(sec);
+        otherPlayer = playerSpawn.getPlayerPositions(playerInt, gameObject.transform);
+        if (otherPlayer != null) {
+            screenshotManager.ScreenshotPlayer();
+            turnPhase = 11;
+        } else turnPhase = 4;
         turnChangeDebounce = true;           
     }
 }

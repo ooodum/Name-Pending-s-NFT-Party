@@ -40,8 +40,14 @@ public class PlayerSpawn : MonoBehaviour
             SpawnChildren.RemoveAt(tempRandom);
         }
     }
-
-    void Update() {
-        
+    public GameObject getPlayerPositions(int playerID, Transform player) {
+        foreach (GameObject child in PlayerChildren) {
+            if (player.position == child.transform.position) {
+                if (player.GetComponent<PlayerController>().playerInt != child.GetComponent<PlayerController>().playerInt) {
+                    return child;
+                }
+            }
+        }
+        return null;
     }
 }
