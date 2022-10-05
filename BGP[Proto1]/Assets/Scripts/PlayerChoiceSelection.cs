@@ -90,6 +90,8 @@ public class PlayerChoiceSelection : MonoBehaviour {
                     LeanTween.cancel(container2);
                     LeanTween.cancel(container3);
 
+                    BWAnims.AnimOut();
+
                     if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
                     if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
                     if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
@@ -209,5 +211,15 @@ public class PlayerChoiceSelection : MonoBehaviour {
             LeanTween.scale(container3.GetChild(5).GetComponent<RectTransform>(), Vector3.one, 0.5f).setEaseOutElastic();
             sold3 = true;
         } else sold3 = false;
+    }
+
+    public void SetEnterInvis() {
+        container1.GetChild(4).gameObject.SetActive(false);
+        container2.GetChild(4).gameObject.SetActive(false);
+        container3.GetChild(4).gameObject.SetActive(false);
+
+        container1.GetChild(5).gameObject.SetActive(false);
+        container2.GetChild(5).gameObject.SetActive(false);
+        container3.GetChild(5).gameObject.SetActive(false);
     }
 }

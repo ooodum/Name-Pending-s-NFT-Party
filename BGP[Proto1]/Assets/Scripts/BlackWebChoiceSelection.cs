@@ -19,6 +19,10 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.B)) {
                     BWAnims.AnimOut();
                 }
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    BWAnims.AnimOut();
+                    PCS.SetEnterInvis();
+                }
             }
         }
     }

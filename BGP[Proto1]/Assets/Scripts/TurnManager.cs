@@ -14,6 +14,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private ShopPool shopPool;
     [SerializeField] private ScreenshotPoolManager spm;
     [SerializeField] private ScreenshotManager screenshotManager;
+    [SerializeField] private DarkWebPool DWP;
 
     //References the player and the camera
     public GameObject players;
@@ -62,6 +63,7 @@ public class TurnManager : MonoBehaviour
         //Refresh the NFT pool
         shopPool.RefreshNFTShopPool();
         spm.RefreshScreenshotPool();
+        DWP.RefreshDarkWebPool();
         screenshotManager.lastAnim = null;
 
         //Set the inventory bar

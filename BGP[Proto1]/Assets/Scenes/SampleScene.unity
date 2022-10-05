@@ -742,6 +742,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+      propertyPath: DWP
+      value: 
+      objectReference: {fileID: 1258664544}
+    - target: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+      propertyPath: NFTManager
+      value: 
+      objectReference: {fileID: 1416178186}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
 --- !u!224 &204136359 stripped
@@ -966,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &366913257
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2555,6 +2563,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869399328}
   m_CullTransparentMesh: 1
+--- !u!114 &902129624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+  m_PrefabInstance: {fileID: 1639790386}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f410ff14a3b14438448d1cb3832e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &905878045 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963731920474144064, guid: 8e066cb0cae9e0547ae1506561762164, type: 3}
@@ -3041,10 +3060,10 @@ RectTransform:
   m_Father: {fileID: 1402941469}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 436, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028261784
 MonoBehaviour:
@@ -3217,6 +3236,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056818661}
   m_CullTransparentMesh: 1
+--- !u!114 &1101897734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+  m_PrefabInstance: {fileID: 204136358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f410ff14a3b14438448d1cb3832e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1150741710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5082083379088550560, guid: df8db9a95a440ff448ef54f714cff594, type: 3}
@@ -3511,6 +3541,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+      propertyPath: DWP
+      value: 
+      objectReference: {fileID: 1258664544}
+    - target: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+      propertyPath: NFTManager
+      value: 
+      objectReference: {fileID: 1416178186}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
 --- !u!224 &1239731571 stripped
@@ -3528,6 +3566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1258664542}
   - component: {fileID: 1258664543}
+  - component: {fileID: 1258664544}
   m_Layer: 5
   m_Name: Choice
   m_TagString: Untagged
@@ -3573,6 +3612,23 @@ MonoBehaviour:
   PCS: {fileID: 672114852}
   BWAnims: {fileID: 1028261784}
   canSelect: 0
+--- !u!114 &1258664544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258664541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f12db6107d03db4291b6f6f59746972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SPM: {fileID: 366913259}
+  turnManager: {fileID: 1294818947}
+  container1: {fileID: 902129624}
+  container2: {fileID: 1101897734}
+  container3: {fileID: 1830794847}
 --- !u!1 &1262394209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3607,7 +3663,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.32489014, y: -351.2}
+  m_AnchoredPosition: {x: -0.32495117, y: -351.2}
   m_SizeDelta: {x: -0.6497803, y: 75.743}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1270246227
@@ -3770,6 +3826,7 @@ MonoBehaviour:
   shopPool: {fileID: 672114850}
   spm: {fileID: 366913259}
   screenshotManager: {fileID: 366913258}
+  DWP: {fileID: 1258664544}
   players: {fileID: 1742589397}
   cam: {fileID: 519420028}
   moveTime: 0.5
@@ -5272,6 +5329,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+      propertyPath: DWP
+      value: 
+      objectReference: {fileID: 1258664544}
+    - target: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+      propertyPath: NFTManager
+      value: 
+      objectReference: {fileID: 1416178186}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
 --- !u!224 &1639790387 stripped
@@ -5843,6 +5908,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1830794847 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5259390971057027525, guid: b5db5f2af2b8d5c4b9e9577a43da9207, type: 3}
+  m_PrefabInstance: {fileID: 1239731570}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f410ff14a3b14438448d1cb3832e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1832540667
 GameObject:
   m_ObjectHideFlags: 0

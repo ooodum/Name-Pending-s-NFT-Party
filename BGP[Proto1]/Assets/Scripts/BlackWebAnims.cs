@@ -26,7 +26,6 @@ public class BlackWebAnims : MonoBehaviour {
     public void AnimIn() {
         if (lastAnim != "AnimIn") {
             lastAnim = "AnimIn";
-            print("1");
 
             CancelAnims();
 
@@ -59,7 +58,6 @@ public class BlackWebAnims : MonoBehaviour {
     public void AnimOut() {
         if (lastAnim != "AnimOut") {
             lastAnim = "AnimOut";
-            print("2");
 
             CancelAnims();
 

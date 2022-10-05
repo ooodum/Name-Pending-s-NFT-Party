@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 3963731920474144095}
   - component: {fileID: 3963731920474144066}
   - component: {fileID: 3963731920474144065}
+  - component: {fileID: 5259390971057027525}
   m_Layer: 5
   m_Name: DarkChoiceContainer
   m_TagString: Untagged
@@ -575,6 +576,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5259390971057027525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3963731920474144094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f410ff14a3b14438448d1cb3832e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DWP: {fileID: 0}
+  NFTManager: {fileID: 0}
+  priceTag: {fileID: 3963731919694551496}
+  title: {fileID: 3803650141849446391}
+  NFTImage: {fileID: 3963731919414449048}
+  container: {fileID: 3963731919842336355}
+  lastAnim: 
+  choiceContainerID: 0
+  thisNFTIndex: 0
+  price: 0
 --- !u!1 &4713491989039681694
 GameObject:
   m_ObjectHideFlags: 0
