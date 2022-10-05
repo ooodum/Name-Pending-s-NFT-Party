@@ -121,7 +121,6 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         } else {
                             LeanTween.cancel(container1.gameObject);
                             LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
-
                         }
                         break;
                     case 2:

@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour
 
     //References the Shop Pool to refresh the pool
     [SerializeField] private ShopPool shopPool;
+    [SerializeField] private ScreenshotPoolManager spm;
+    [SerializeField] private ScreenshotManager screenshotManager;
 
     //References the player and the camera
     public GameObject players;
@@ -59,6 +61,9 @@ public class TurnManager : MonoBehaviour
         PlayerChildren[turn-1].transform.Find("Triangles").gameObject.SetActive(true);
         //Refresh the NFT pool
         shopPool.RefreshNFTShopPool();
+        spm.RefreshScreenshotPool();
+        screenshotManager.lastAnim = null;
+
         //Set the inventory bar
         PlayerChildren[turn - 1].GetComponent<PlayerInventoryManager>().SetInventory();
     }

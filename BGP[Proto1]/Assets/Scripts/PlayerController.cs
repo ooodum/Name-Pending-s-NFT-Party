@@ -81,6 +81,9 @@ public class PlayerController : MonoBehaviour {
     //References the Screenshot Manager
     [SerializeField] ScreenshotManager screenshotManager;
     [SerializeField] PlayerSpawn playerSpawn;
+
+    //Set last animation
+    private string lastAnim;
     
 
     void Start() {
@@ -127,6 +130,8 @@ public class PlayerController : MonoBehaviour {
                             turnPhase = 10;
                         }
                     }
+                    if (Input.GetKeyDown(KeyCode.O)) diceRoll--;
+                    if (Input.GetKeyDown(KeyCode.P)) diceRoll++;
                     //Calls the movePlayer function
                     movePlayer();
 
@@ -156,6 +161,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case 4:
+                lastAnim = null;
                 //Ask the Turn Manager to move on to the next player's turn
                 turnManager.ChangeTurn();
                 //Turn off player glow
@@ -184,8 +190,14 @@ public class PlayerController : MonoBehaviour {
                 } 
                 break;
             case 11:
-                screenshotManager.ScreenshotPlayer();
                 StopAllCoroutines();
+                screenshotManager.ScreenshotPlayer(otherPlayer, gameObject);
+                break;
+            case 12:
+                if (lastAnim != "12") {
+                    lastAnim = "12";
+                    LeanTween.move(turnManager.gameObject, turnManager.gameObject.transform.position, 0.45f).setOnComplete(SendBackToFour);
+                }
                 break;
             default:
                 break;
@@ -298,9 +310,11 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(sec);
         otherPlayer = playerSpawn.getPlayerPositions(playerInt, gameObject.transform);
         if (otherPlayer != null) {
-            screenshotManager.ScreenshotPlayer();
             turnPhase = 11;
         } else turnPhase = 4;
         turnChangeDebounce = true;           
+    }
+    void SendBackToFour() {
+        turnPhase = 4;
     }
 }

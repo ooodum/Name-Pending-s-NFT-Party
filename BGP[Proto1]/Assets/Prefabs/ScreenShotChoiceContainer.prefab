@@ -377,6 +377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d79814698b516647a89438632341043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spm: {fileID: 0}
+  NFTImage: {fileID: 3963731919414449048}
+  title: {fileID: 3803650141849446391}
+  NFTManager: {fileID: 0}
+  thisNFTIndex: 0
 --- !u!114 &2386864390055257965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +399,13 @@ MonoBehaviour:
   title: {fileID: 3803650141849446391}
   stealBar: {fileID: 2875838087006671321}
   stealText: {fileID: 6633117091703380053}
+  shopManager: {fileID: 0}
+  SPCS: {fileID: 0}
+  lastAnim: 
+  choiceContainerID: 0
+  numOfNFTsShown: 0
+  inPos: {x: 0, y: 0, z: 0}
+  outPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4713491989039681694
 GameObject:
   m_ObjectHideFlags: 0

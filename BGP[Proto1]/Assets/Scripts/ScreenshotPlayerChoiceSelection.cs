@@ -5,16 +5,22 @@ using UnityEngine;
 public class ScreenshotPlayerChoiceSelection : MonoBehaviour {
     [SerializeField] private RectTransform container1;
     [SerializeField] private RectTransform container2;
+    [SerializeField] private NFTManager NFTManager;
+    [SerializeField] private TurnManager turnManager;
+    [SerializeField] private ScreenshotManager screenshotManager;
 
     private bool canSelect = false;
     private int currentChoice;
     private int lastChoice;
 
+    public int numOfNFTsShown;
+
     private float duration = 0.6f;
     private Vector3 scale = new Vector3(1, 1, 1);
 
     void Start() {
-
+        container1.GetChild(3).gameObject.SetActive(false);
+        container2.GetChild(3).gameObject.SetActive(false);
     }
 
     void Update() {
@@ -47,10 +53,20 @@ public class ScreenshotPlayerChoiceSelection : MonoBehaviour {
                     }
                     break;
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Return)) {
-            //switch the current choice
-            //turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerInventoryManager>().SetInventory();
+            if (Input.GetKeyDown(KeyCode.Return)) {
+                switch (currentChoice) {
+                    case 1:
+                        NFTManager.NFTList[container1.GetComponent<ScreenshotChoiceManager>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
+                        screenshotManager.CloseScreenshotWindow();
+                        break;
+                    case 2:
+                        NFTManager.NFTList[container2.GetComponent<ScreenshotChoiceManager>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
+                        screenshotManager.CloseScreenshotWindow();
+                        break;
+                }
+                turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerInventoryManager>().SetInventory();
+                canSelect = false;
+            }
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
             currentChoice--;
@@ -58,12 +74,12 @@ public class ScreenshotPlayerChoiceSelection : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
             currentChoice++;
         }
-        currentChoice = Mathf.Clamp(currentChoice, 1, 2);
+        currentChoice = Mathf.Clamp(currentChoice, 1, numOfNFTsShown);
     }
     public void ActivateChoiceSelection() {
         LeanTween.cancel(container1);
         LeanTween.cancel(container2);
         canSelect = true;
         currentChoice = 1;
-    }
+}
 }
