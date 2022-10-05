@@ -110,8 +110,8 @@ public class BlackWebAnims : MonoBehaviour {
         LeanTween.cancel(container3.GetChild(3).gameObject);
     }
 
-    void SetInvis() {
-        shopManager.AnimImageTransparency(gameObject.GetComponent<Image>(), 1, 0, 0.3f, 0);
+    public void SetInvis() {
+        shopManager.AnimImageTransparency(gameObject.GetComponent<Image>(), 1, 0, 0, 0);
         shopManager.AnimTextTransparency(title, 1, 0, 0, 0);   
         shopManager.AnimTextTransparency(ETHtext, 1, 0, 0, 0);   
         shopManager.AnimTextTransparency(subtitle, 1, 0, 0, 0);   

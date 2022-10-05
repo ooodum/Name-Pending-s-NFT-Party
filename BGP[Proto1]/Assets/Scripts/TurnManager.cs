@@ -61,6 +61,7 @@ public class TurnManager : MonoBehaviour
         //Enable their triangles
         PlayerChildren[turn-1].transform.Find("Triangles").gameObject.SetActive(true);
         //Refresh the NFT pool
+        DWP.refreshAvail = true;
         shopPool.RefreshNFTShopPool();
         spm.RefreshScreenshotPool();
         DWP.RefreshDarkWebPool();

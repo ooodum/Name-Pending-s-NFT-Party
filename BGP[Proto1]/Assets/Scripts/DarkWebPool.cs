@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DarkWebPool : MonoBehaviour
 {
+    public bool refreshAvail;
     public List<NFTInfo> darkPool = new List<NFTInfo>();
 
     [SerializeField] private ScreenshotPoolManager SPM;
@@ -21,8 +22,11 @@ public class DarkWebPool : MonoBehaviour
                 availableNFTs.Add(child);
             }
         }
-        container1.RefreshDarkWebSelection();
-        container2.RefreshDarkWebSelection();
-        container3.RefreshDarkWebSelection();
+        if (refreshAvail) {
+            refreshAvail = false;
+            container1.RefreshDarkWebSelection();
+            container2.RefreshDarkWebSelection();
+            container3.RefreshDarkWebSelection();
+        }
     }
 }

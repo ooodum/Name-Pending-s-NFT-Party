@@ -9,6 +9,7 @@ public class ShopManager : MonoBehaviour {
     private Vector3 ETHPos = new Vector3(0, -300, 0);
     public string lastAnim = null;
     public bool darkWebOn = false;
+    public bool shopOpen = false;
 
     [SerializeField] private Image bg;
     [SerializeField] private Image ETHLogo;

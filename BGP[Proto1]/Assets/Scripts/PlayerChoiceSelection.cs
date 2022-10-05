@@ -27,7 +27,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
         if (container3.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
     }
     private void Update() {
-        if (!shopManager.darkWebOn) {
+        if (!shopManager.darkWebOn && shopManager.shopOpen) {
             if (canSelect) {
                 switch (currentChoice) {
                     case 1:
@@ -85,12 +85,13 @@ public class PlayerChoiceSelection : MonoBehaviour {
                     canSelect = false;
                     lastChoice = 0;
                     currentChoice = 0;
+                    shopManager.shopOpen = false;
 
                     LeanTween.cancel(container1);
                     LeanTween.cancel(container2);
                     LeanTween.cancel(container3);
 
-                    BWAnims.AnimOut();
+                    BWAnims.SetInvis();
 
                     if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
                     if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
@@ -193,7 +194,8 @@ public class PlayerChoiceSelection : MonoBehaviour {
     public void ActivateChoiceSelection() {
         LeanTween.cancel(container1);
         LeanTween.cancel(container2);
-        LeanTween.cancel(container3);   
+        LeanTween.cancel(container3);
+        shopManager.shopOpen = true;
         canSelect = true;
         currentChoice = 2;
         if (NFTManager.NFTList[container1.GetComponent<ShopSelection>().thisNFTIndex].owner == turnManager.PlayerChildren[turnManager.turn - 1]) {

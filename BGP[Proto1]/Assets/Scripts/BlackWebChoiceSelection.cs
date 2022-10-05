@@ -14,7 +14,7 @@ public class BlackWebChoiceSelection : MonoBehaviour {
     }
 
     void Update() {
-        if (shopManager.darkWebOn) {
+        if (shopManager.darkWebOn && shopManager.shopOpen) {
             if (canSelect) {
                 if (Input.GetKeyDown(KeyCode.B)) {
                     BWAnims.AnimOut();
@@ -22,6 +22,7 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.Space)) {
                     BWAnims.AnimOut();
                     PCS.SetEnterInvis();
+                    shopManager.shopOpen = false;
                 }
             }
         }
