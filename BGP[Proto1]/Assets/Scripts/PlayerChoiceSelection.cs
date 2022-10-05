@@ -15,6 +15,8 @@ public class PlayerChoiceSelection : MonoBehaviour {
     [SerializeField] RectTransform container3;
     [SerializeField] TurnManager turnManager;
     [SerializeField] NFTManager NFTManager;
+    [SerializeField] ShopManager shopManager;
+    [SerializeField] BlackWebAnims BWAnims;
 
     private bool sold1;
     private bool sold2;
@@ -25,159 +27,164 @@ public class PlayerChoiceSelection : MonoBehaviour {
         if (container3.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
     }
     private void Update() {
-        if (canSelect) {
-            switch (currentChoice) {
-                case 1:
-                    if (lastChoice != 1) {
-                        lastChoice = 1;
-                        if (!sold1) container1.GetChild(4).gameObject.SetActive(true); else container1.GetChild(5).gameObject.SetActive(true);
-                        container2.GetChild(4).gameObject.SetActive(false);
-                        container3.GetChild(4).gameObject.SetActive(false);
-
-                        LeanTween.cancel(container1.gameObject);
-                        LeanTween.cancel(container2.gameObject);
-                        LeanTween.cancel(container3.gameObject);
-
-                        LeanTween.scale(container1, scale * 1.2f, duration).setEaseOutElastic();
-                        LeanTween.scale(container2, scale, duration).setEaseOutElastic();
-                        LeanTween.scale(container3, scale, duration).setEaseOutElastic();
-                    }
-                    
-                    break;
-                case 2:
-                    if (lastChoice != 2) {
-                        lastChoice = 2;
-                        if (!sold2) container2.GetChild(4).gameObject.SetActive(true); else container2.GetChild(5).gameObject.SetActive(true);
-                        container1.GetChild(4).gameObject.SetActive(false);
-                        container3.GetChild(4).gameObject.SetActive(false);
-
-                        LeanTween.cancel(container1.gameObject);
-                        LeanTween.cancel(container2.gameObject);
-                        LeanTween.cancel(container3.gameObject);
-
-                        LeanTween.scale(container2, scale * 1.2f, duration).setEaseOutElastic();
-                        LeanTween.scale(container1, scale, duration).setEaseOutElastic();
-                        LeanTween.scale(container3, scale, duration).setEaseOutElastic();
-                    }
-                    break;
-                case 3:
-                    if (lastChoice != 3) {
-                        lastChoice = 3;
-                        if (!sold3) container3.GetChild(4).gameObject.SetActive(true); else container3.GetChild(5).gameObject.SetActive(true);
-                        container1.GetChild(4).gameObject.SetActive(false);
-                        container2.GetChild(4).gameObject.SetActive(false);
-
-                        LeanTween.cancel(container1.gameObject);
-                        LeanTween.cancel(container2.gameObject);
-                        LeanTween.cancel(container3.gameObject);
-
-                        LeanTween.scale(container3, scale * 1.2f, duration).setEaseOutElastic();
-                        LeanTween.scale(container1, scale, duration).setEaseOutElastic();
-                        LeanTween.scale(container2, scale, duration).setEaseOutElastic();
-                    }
-                    break;
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                canSelect = false;
-                lastChoice = 0;
-                currentChoice = 0;
-
-                LeanTween.cancel(container1);
-                LeanTween.cancel(container2);
-                LeanTween.cancel(container3);
-
-                if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-                if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-                if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-
-                container1.GetChild(4).gameObject.SetActive(false);
-                container2.GetChild(4).gameObject.SetActive(false);
-                container3.GetChild(4).gameObject.SetActive(false);
-
-                container1.GetChild(5).gameObject.SetActive(false);
-                container2.GetChild(5).gameObject.SetActive(false);
-                container3.GetChild(5).gameObject.SetActive(false);
-            }
-            if (Input.GetKeyDown(KeyCode.Return)) {
+        if (!shopManager.darkWebOn) {
+            if (canSelect) {
                 switch (currentChoice) {
                     case 1:
-                        if (!sold1) {
-                            if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container1.GetComponent<ShopSelection>().price) {
-                                turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container1.GetComponent<ShopSelection>().price);
+                        if (lastChoice != 1) {
+                            lastChoice = 1;
+                            if (!sold1) container1.GetChild(4).gameObject.SetActive(true); else container1.GetChild(5).gameObject.SetActive(true);
+                            container2.GetChild(4).gameObject.SetActive(false);
+                            container3.GetChild(4).gameObject.SetActive(false);
 
-                                NFTManager.NFTList[container1.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
+                            LeanTween.cancel(container1.gameObject);
+                            LeanTween.cancel(container2.gameObject);
+                            LeanTween.cancel(container3.gameObject);
 
-                                container1.GetChild(4).gameObject.SetActive(false);
-                                container1.GetChild(5).gameObject.SetActive(true);
+                            LeanTween.scale(container1, scale * 1.2f, duration).setEaseOutElastic();
+                            LeanTween.scale(container2, scale, duration).setEaseOutElastic();
+                            LeanTween.scale(container3, scale, duration).setEaseOutElastic();
+                        }
 
-                                container1.GetChild(1).GetComponent<Image>().color = new Color(1, 0.76f, 0.76f);
+                        break;
+                    case 2:
+                        if (lastChoice != 2) {
+                            lastChoice = 2;
+                            if (!sold2) container2.GetChild(4).gameObject.SetActive(true); else container2.GetChild(5).gameObject.SetActive(true);
+                            container1.GetChild(4).gameObject.SetActive(false);
+                            container3.GetChild(4).gameObject.SetActive(false);
 
-                                sold1 = true;
+                            LeanTween.cancel(container1.gameObject);
+                            LeanTween.cancel(container2.gameObject);
+                            LeanTween.cancel(container3.gameObject);
+
+                            LeanTween.scale(container2, scale * 1.2f, duration).setEaseOutElastic();
+                            LeanTween.scale(container1, scale, duration).setEaseOutElastic();
+                            LeanTween.scale(container3, scale, duration).setEaseOutElastic();
+                        }
+                        break;
+                    case 3:
+                        if (lastChoice != 3) {
+                            lastChoice = 3;
+                            if (!sold3) container3.GetChild(4).gameObject.SetActive(true); else container3.GetChild(5).gameObject.SetActive(true);
+                            container1.GetChild(4).gameObject.SetActive(false);
+                            container2.GetChild(4).gameObject.SetActive(false);
+
+                            LeanTween.cancel(container1.gameObject);
+                            LeanTween.cancel(container2.gameObject);
+                            LeanTween.cancel(container3.gameObject);
+
+                            LeanTween.scale(container3, scale * 1.2f, duration).setEaseOutElastic();
+                            LeanTween.scale(container1, scale, duration).setEaseOutElastic();
+                            LeanTween.scale(container2, scale, duration).setEaseOutElastic();
+                        }
+                        break;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    canSelect = false;
+                    lastChoice = 0;
+                    currentChoice = 0;
+
+                    LeanTween.cancel(container1);
+                    LeanTween.cancel(container2);
+                    LeanTween.cancel(container3);
+
+                    if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+                    if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+                    if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+
+                    container1.GetChild(4).gameObject.SetActive(false);
+                    container2.GetChild(4).gameObject.SetActive(false);
+                    container3.GetChild(4).gameObject.SetActive(false);
+
+                    container1.GetChild(5).gameObject.SetActive(false);
+                    container2.GetChild(5).gameObject.SetActive(false);
+                    container3.GetChild(5).gameObject.SetActive(false);
+                }
+                if (Input.GetKeyDown(KeyCode.Return)) {
+                    switch (currentChoice) {
+                        case 1:
+                            if (!sold1) {
+                                if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container1.GetComponent<ShopSelection>().price) {
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container1.GetComponent<ShopSelection>().price);
+
+                                    NFTManager.NFTList[container1.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
+
+                                    container1.GetChild(4).gameObject.SetActive(false);
+                                    container1.GetChild(5).gameObject.SetActive(true);
+
+                                    container1.GetChild(1).GetComponent<Image>().color = new Color(1, 0.76f, 0.76f);
+
+                                    sold1 = true;
+                                } else {
+                                    LeanTween.cancel(container1.gameObject);
+                                    LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
+                                }
                             } else {
                                 LeanTween.cancel(container1.gameObject);
                                 LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                             }
-                        } else {
-                            LeanTween.cancel(container1.gameObject);
-                            LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
-                        }
-                        break;
-                    case 2:
-                        if (!sold2) {
-                            if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container2.GetComponent<ShopSelection>().price) {
-                                turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container2.GetComponent<ShopSelection>().price);
+                            break;
+                        case 2:
+                            if (!sold2) {
+                                if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container2.GetComponent<ShopSelection>().price) {
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container2.GetComponent<ShopSelection>().price);
 
-                                NFTManager.NFTList[container2.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
+                                    NFTManager.NFTList[container2.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
-                                container2.GetChild(4).gameObject.SetActive(false);
-                                container2.GetChild(5).gameObject.SetActive(true);
+                                    container2.GetChild(4).gameObject.SetActive(false);
+                                    container2.GetChild(5).gameObject.SetActive(true);
 
-                                container2.GetChild(1).GetComponent<Image>().color = new Color(1, 0.76f, 0.76f);
+                                    container2.GetChild(1).GetComponent<Image>().color = new Color(1, 0.76f, 0.76f);
 
-                                sold2 = true;
+                                    sold2 = true;
+                                } else {
+                                    LeanTween.cancel(container2.gameObject);
+                                    LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
+                                }
                             } else {
                                 LeanTween.cancel(container2.gameObject);
                                 LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
+
                             }
-                        } else {
-                            LeanTween.cancel(container2.gameObject);
-                            LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
+                            break;
+                        case 3:
+                            if (!sold3) {
+                                if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container3.GetComponent<ShopSelection>().price) {
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container3.GetComponent<ShopSelection>().price);
 
-                        }
-                        break;  
-                    case 3:
-                        if (!sold3) {
-                            if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container3.GetComponent<ShopSelection>().price) {
-                                turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container3.GetComponent<ShopSelection>().price);
+                                    NFTManager.NFTList[container3.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
-                                NFTManager.NFTList[container3.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
+                                    container3.GetChild(4).gameObject.SetActive(false);
+                                    container3.GetChild(5).gameObject.SetActive(true);
 
-                                container3.GetChild(4).gameObject.SetActive(false);
-                                container3.GetChild(5).gameObject.SetActive(true);
+                                    container3.GetChild(1).GetComponent<Image>().color = new Color(1, 0.76f, 0.76f);
 
-                                container3.GetChild(1).GetComponent<Image>().color = new Color(1, 0.76f, 0.76f);
-
-                                sold3 = true;
+                                    sold3 = true;
+                                } else {
+                                    LeanTween.cancel(container3.gameObject);
+                                    LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
+                                }
                             } else {
                                 LeanTween.cancel(container3.gameObject);
                                 LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                             }
-                        } else {
-                            LeanTween.cancel(container3.gameObject);
-                            LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
-                        }
-                        break;
+                            break;
+                    }
+                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerInventoryManager>().SetInventory();
                 }
-                turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerInventoryManager>().SetInventory();
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
+                    currentChoice--;
+                }
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
+                    currentChoice++;
+                }
+                if (Input.GetKeyDown(KeyCode.B)) {
+                    BWAnims.AnimIn();
+                }
+                currentChoice = Mathf.Clamp(currentChoice, 1, 3);
             }
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
-                currentChoice--;
-            }
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
-                currentChoice++;
-            }
-            currentChoice = Mathf.Clamp(currentChoice, 1, 3);
         }
     }
 

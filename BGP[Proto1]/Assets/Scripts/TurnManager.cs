@@ -21,7 +21,7 @@ public class TurnManager : MonoBehaviour
 
     //SmoothDamp prereq's
     private Vector3 vel = Vector3.zero;
-    public float moveTime = 0.5f;
+    public float moveTime = 0.3f;
 
     //Set the camera offset
     private Vector3 camOffset = new Vector3(0, 0, -10f);

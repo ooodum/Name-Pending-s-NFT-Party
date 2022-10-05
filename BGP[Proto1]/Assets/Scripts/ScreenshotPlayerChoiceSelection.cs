@@ -9,7 +9,7 @@ public class ScreenshotPlayerChoiceSelection : MonoBehaviour {
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private ScreenshotManager screenshotManager;
 
-    private bool canSelect = false;
+    public bool canSelect = false;
     private int currentChoice;
     private int lastChoice;
 

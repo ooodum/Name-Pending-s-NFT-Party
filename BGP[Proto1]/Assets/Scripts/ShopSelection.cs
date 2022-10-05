@@ -78,19 +78,26 @@ public class ShopSelection : MonoBehaviour {
     public void RefreshShopSelection() {
         int tempRandom = Random.Range(0, shopPool.availableNFTs.Count);
         int tempIndex = 0;
-        thisNFT = shopPool.availableNFTs[tempRandom];
-        NFTImage.sprite = thisNFT.sprite;
-        title.text = $"{thisNFT.collection} #0{thisNFT.ID}";
-        price = setNFTPrice(thisNFT.collection);
-        priceTag.text = $"{price} ETH";
-        foreach(NFTInfo child in NFTManager.NFTList) {
-            if (child.collection == thisNFT.collection && child.ID == thisNFT.ID) {
-                thisNFTIndex = tempIndex;
-                break;
-            } else tempIndex++;
+        if (shopPool.availableNFTs.Count != 0) {
+            thisNFT = shopPool.availableNFTs[tempRandom];
+            NFTImage.sprite = thisNFT.sprite;
+            title.text = $"{thisNFT.collection} #0{thisNFT.ID}";
+            price = setNFTPrice(thisNFT.collection);
+            priceTag.text = $"{price} ETH";
+            foreach (NFTInfo child in NFTManager.NFTList) {
+                if (child.collection == thisNFT.collection && child.ID == thisNFT.ID) {
+                    thisNFTIndex = tempIndex;
+                    break;
+                } else tempIndex++;
+            }
+            shopPool.availableNFTs.RemoveAt(tempRandom);
+            transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        } else {
+            NFTImage.color = new Color(0, 0, 0, 0);
+            title.text = "NOT AVAILABLE";
+            priceTag.text = $">>><<<";
         }
-        shopPool.availableNFTs.RemoveAt(tempRandom);
-        transform.GetChild(1).GetComponent<Image>().color = new Color(1,1,1,0);
+        
     }
 
     private float setNFTPrice(string collectionName) {
@@ -106,7 +113,7 @@ public class ShopSelection : MonoBehaviour {
             case "Uncle Bob":
                 return Mathf.Round((Random.Range(1, 2f)) * 100) / 100;
             default:
-                return 0;
+                return 482910.3721f;
 
         }
     }
