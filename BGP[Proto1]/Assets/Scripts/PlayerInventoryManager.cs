@@ -14,6 +14,7 @@ public class PlayerInventoryManager : MonoBehaviour {
     [SerializeField] private GameObject inventory;
 
     [SerializeField] NFTManager NFTManager;
+    [SerializeField] GameOver gameOver;
     public void SetInventory() {
         dissimulation = 0;
         nendoroiiids = 0;
@@ -55,6 +56,9 @@ public class PlayerInventoryManager : MonoBehaviour {
             } else {
                 inventory.transform.GetChild(index).GetChild(i).gameObject.SetActive(false);
             }
+        }
+        if (collection == size) {
+            gameOver.EndGame(gameObject.GetComponent<PlayerController>().playerInt);
         }
     }
 }

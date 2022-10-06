@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerSpawn : MonoBehaviour
 {
     //Variable that denotes the amount of players that want to play
-    public int numberOfPlayers;
+    public int numberOfPlayers = 2;
 
     //References the board and the players
     public GameObject gameBoard;
@@ -14,6 +14,10 @@ public class PlayerSpawn : MonoBehaviour
     //Create two lists: One for the spawn locations and one for the players
     List<GameObject> SpawnChildren = new List<GameObject>();
     List<GameObject> PlayerChildren = new List<GameObject>();
+
+    void Awake() {
+        numberOfPlayers = PlayerPrefs.GetInt("numKey");
+    }
     void Start() {
         //Puts the spawns in the spawn list
         foreach(Transform child in gameBoard.transform) {

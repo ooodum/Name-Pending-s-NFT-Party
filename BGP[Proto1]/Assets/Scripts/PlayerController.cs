@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
     private string lastAnim;
     
 
-    void Start() {
+    void Awake() {
 
         //Sets position to the player
         SDPos = transform.position;

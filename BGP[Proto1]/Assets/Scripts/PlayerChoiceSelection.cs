@@ -85,7 +85,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         case 1:
                             if (!sold1) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container1.GetComponent<ShopSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = (Mathf.Round(turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container1.GetComponent<ShopSelection>().price)) * 100) / 100;
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - container1.GetComponent<ShopSelection>().price) * 100) / 100;
 
                                     NFTManager.NFTList[container1.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -107,7 +107,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         case 2:
                             if (!sold2) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container2.GetComponent<ShopSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = (Mathf.Round(turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container2.GetComponent<ShopSelection>().price)) * 100) / 100;
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container2.GetComponent<ShopSelection>().price)) * 100) / 100;
 
                                     NFTManager.NFTList[container2.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -130,7 +130,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         case 3:
                             if (!sold3) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container3.GetComponent<ShopSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = (Mathf.Round(turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container3.GetComponent<ShopSelection>().price))*100)/100;
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container3.GetComponent<ShopSelection>().price))*100)/100;
 
                                     NFTManager.NFTList[container3.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 

@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerIconManager : MonoBehaviour
 {
     //Reference the player icon prefab
     [SerializeField] private GameObject playerIcon;
+
+    //Reference the different icons
+    [SerializeField] private Sprite icon1;
+    [SerializeField] private Sprite icon2;
+    [SerializeField] private Sprite icon3;
+    [SerializeField] private Sprite icon4;
 
     //Reference to the player spawner because it stores the number of players
     [SerializeField] private PlayerSpawn playerSpawn;
@@ -26,9 +33,25 @@ public class PlayerIconManager : MonoBehaviour
             if (playerSpawn.numberOfPlayers == 2) centering = ((i+1) * (width / (playerSpawn.numberOfPlayers+2))) - (width / (2)) + (width / (2 * (playerSpawn.numberOfPlayers+2)));
 
             //Create and place the player icon accordingly
-            playerIconList.Add(Instantiate(playerIcon,transform));
+            playerIconList.Add(transform.GetChild(i).gameObject);
+            playerIconList[i].SetActive(true);
             playerIconList[i].GetComponent<RectTransform>().localPosition = new Vector2(centering,0);
             playerIconList[i].name = $"Player {i+1} Icon";
+
+            switch (i) {
+                case 0:
+                    playerIconList[i].transform.GetChild(1).GetComponent<Image>().sprite = icon1;
+                    break;
+                case 1:
+                    playerIconList[i].transform.GetChild(1).GetComponent<Image>().sprite = icon2;
+                    break;
+                case 2:
+                    playerIconList[i].transform.GetChild(1).GetComponent<Image>().sprite = icon3;
+                    break;
+                case 3:
+                    playerIconList[i].transform.GetChild(1).GetComponent<Image>().sprite = icon4;
+                    break;
+            }
         }
     }
 

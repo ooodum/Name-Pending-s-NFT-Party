@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class TextBoxManager : MonoBehaviour {
@@ -11,17 +12,21 @@ public class TextBoxManager : MonoBehaviour {
     //References the text
     public TextMeshProUGUI text;
 
+    //References textbox
+    [SerializeField] private Image textBox;
+
     //References the player
     public GameObject player;
 
     //Gets the last animation
     private string lastAnim = null;
     public bool animDone = false;
-    void Start() {
+    void Awake() {
         //Sets the text box position at a higher position
         transform.position = up.transform.position;
         LeanTween.alpha(gameObject, 0, 0f);
         AnimTextTransparency(text, 1, 0, 0, 0);
+        AnimImageTransparency(textBox, 0, 0, 0, 0);
     }
 
     void Update(){
@@ -30,7 +35,7 @@ public class TextBoxManager : MonoBehaviour {
             AnimIn();
             lastAnim = "AnimIn";
         //Once the turn is over, animate the textbox out
-        } else if (transform.parent.GetComponent <PlayerController>().turnPhase == 3) {
+        } else if (transform.parent.GetComponent<PlayerController>().turnPhase == 3) {
             AnimOut();
             lastAnim = "AnimOut";
         //Make sure that the textbox is always invisible when it's not the player's turn
@@ -50,6 +55,7 @@ public class TextBoxManager : MonoBehaviour {
             LeanTween.moveY(gameObject, down.transform.position.y, 0.5f).setEaseOutCirc();
             LeanTween.alpha(gameObject, 1, 0.2f).setEaseOutExpo();
             AnimTextTransparency(text, 0, 1, 0.1f, 0);
+            AnimImageTransparency(textBox, 0, 1, 0.1f, 0);
         }
         //Stops animation after it gets close enough
         if ((transform.position.y - down.transform.position.y) < 0.05f) {
@@ -74,6 +80,7 @@ public class TextBoxManager : MonoBehaviour {
             LeanTween.moveY(gameObject, up.transform.position.y, 1f).setEaseOutQuad();
             LeanTween.alpha(gameObject, 0, 0.2f).setEaseInExpo();
             AnimTextTransparency(text, 1, 0, 0.1f, 0);
+            AnimImageTransparency(textBox, 1, 0, 0.1f, 0);
         }
     }
 
@@ -82,6 +89,13 @@ public class TextBoxManager : MonoBehaviour {
             Color c = text.faceColor;
             c.a = value;
             text.faceColor = c;
+        });
+    }
+    public void AnimImageTransparency(Image image, float start, float end, float value, float delay) {
+        LeanTween.value(image.gameObject, start, end, value).setDelay(delay).setOnUpdate((value) => {
+            Color c = image.color;
+            c.a = value;
+            image.color = c;
         });
     }
 }
