@@ -16,7 +16,7 @@ public class PlayerSpawn : MonoBehaviour
     List<GameObject> PlayerChildren = new List<GameObject>();
 
     void Awake() {
-        numberOfPlayers = PlayerPrefs.GetInt("numKey");
+        //numberOfPlayers = PlayerPrefs.GetInt("numKey");
     }
     void Start() {
         //Puts the spawns in the spawn list

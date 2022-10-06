@@ -21,10 +21,18 @@ public class BlackWebChoiceSelection : MonoBehaviour {
     private bool sold1;
     private bool sold2;
     private bool sold3;
+
+    Vector2 container1Pos;
+    Vector2 container2Pos;
+    Vector2 container3Pos;
     void Start() {
         if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
         if (container2.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
         if (container3.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+
+        container1Pos = container1.anchoredPosition;
+        container2Pos = container2.anchoredPosition;
+        container3Pos = container3.anchoredPosition;
     }
 
     void Update() {
@@ -86,7 +94,7 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                         case 1:
                             if (!sold1) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container1.GetComponent<DarkWebIndividualChoiceSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container1.GetComponent<ShopSelection>().price)) * 100) / 100;
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container1.GetComponent<DarkWebIndividualChoiceSelection>().price)) * 100) / 100;
 
                                     NFTManager.NFTList[container1.GetComponent<DarkWebIndividualChoiceSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -98,17 +106,19 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                                     sold1 = true;
                                 } else {
                                     LeanTween.cancel(container1.gameObject);
+                                    container1.anchoredPosition = container1Pos;
                                     LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                                 }
                             } else {
                                 LeanTween.cancel(container1.gameObject);
+                                container1.anchoredPosition = container1Pos;
                                 LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                             }
                             break;
                         case 2:
                             if (!sold2) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container2.GetComponent<DarkWebIndividualChoiceSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container2.GetComponent<ShopSelection>().price)) * 100) / 100;
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container2.GetComponent<DarkWebIndividualChoiceSelection>().price)) * 100) / 100;
 
                                     NFTManager.NFTList[container2.GetComponent<DarkWebIndividualChoiceSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -120,10 +130,12 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                                     sold2 = true;
                                 } else {
                                     LeanTween.cancel(container2.gameObject);
+                                    container2.anchoredPosition = container2Pos;
                                     LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                                 }
                             } else {
                                 LeanTween.cancel(container2.gameObject);
+                                container2.anchoredPosition = container2Pos;
                                 LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
 
                             }
@@ -131,7 +143,7 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                         case 3:
                             if (!sold3) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container3.GetComponent<DarkWebIndividualChoiceSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container3.GetComponent<ShopSelection>().price)) * 100) / 100;
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = Mathf.Round((turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container3.GetComponent<DarkWebIndividualChoiceSelection>().price)) * 100) / 100;
 
                                     NFTManager.NFTList[container3.GetComponent<DarkWebIndividualChoiceSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -143,10 +155,12 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                                     sold3 = true;
                                 } else {
                                     LeanTween.cancel(container3.gameObject);
+                                    container2.anchoredPosition = container2Pos;
                                     LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                                 }
                             } else {
                                 LeanTween.cancel(container3.gameObject);
+                                container2.anchoredPosition = container2Pos;
                                 LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                             }
                             break;
@@ -172,6 +186,40 @@ public class BlackWebChoiceSelection : MonoBehaviour {
                 }
                 currentChoice = Mathf.Clamp(currentChoice, 1, 3);
             }
+        }
+    }
+
+    public void ActivateChoiceSelection() {
+        LeanTween.cancel(container1);
+        LeanTween.cancel(container2);
+        LeanTween.cancel(container3);
+        currentChoice = 2;
+        if (NFTManager.NFTList[container1.GetComponent<DarkWebIndividualChoiceSelection>().thisNFTIndex].owner == turnManager.PlayerChildren[turnManager.turn - 1]) {
+            print("Found");
+            container1.GetChild(5).gameObject.SetActive(true);
+            LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one, 0.5f).setEaseOutElastic();
+            sold1 = true;
+        } else {
+            sold1 = false;
+            container1.transform.GetChild(1).gameObject.GetComponent<Image>().color = container1.gameObject.GetComponent<DarkWebIndividualChoiceSelection>().thisBG;
+        }
+        if (NFTManager.NFTList[container2.GetComponent<DarkWebIndividualChoiceSelection>().thisNFTIndex].owner == turnManager.PlayerChildren[turnManager.turn - 1]) {
+            print("Found");
+            container2.GetChild(5).gameObject.SetActive(true);
+            LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one, 0.5f).setEaseOutElastic();
+            sold2 = true;
+        } else {
+            sold2 = false;
+            container2.transform.GetChild(1).gameObject.GetComponent<Image>().color = container2.gameObject.GetComponent<DarkWebIndividualChoiceSelection>().thisBG;
+        }
+        if (NFTManager.NFTList[container3.GetComponent<DarkWebIndividualChoiceSelection>().thisNFTIndex].owner == turnManager.PlayerChildren[turnManager.turn - 1]) {
+            print("Found");
+            container3.GetChild(5).gameObject.SetActive(true);
+            LeanTween.scale(container3.GetChild(5).GetComponent<RectTransform>(), Vector3.one, 0.5f).setEaseOutElastic();
+            sold3 = true;
+        } else {
+            sold3 = false;
+            container3.transform.GetChild(1).gameObject.GetComponent<Image>().color = container3.gameObject.GetComponent<DarkWebIndividualChoiceSelection>().thisBG;
         }
     }
 }

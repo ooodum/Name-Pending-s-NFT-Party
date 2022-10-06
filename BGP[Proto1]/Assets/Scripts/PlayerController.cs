@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
                 //If the player presses the spacebar and it's the player's turn:
                 if (Input.GetKeyDown(KeyCode.Space) && playerInt == turnManager.turn) {
                     //Roll the dice and move on to Phase 2
-                    diceRoll = Random.Range(1, 7);
+                    diceRoll = Random.Range(1, 11);
                     turnPhase = 2;
                 }
                 break;
@@ -130,8 +130,6 @@ public class PlayerController : MonoBehaviour {
                             turnPhase = 10;
                         }
                     }
-                    if (Input.GetKeyDown(KeyCode.O)) diceRoll--;
-                    if (Input.GetKeyDown(KeyCode.P)) diceRoll++;
                     //Calls the movePlayer function
                     movePlayer();
 

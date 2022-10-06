@@ -17,8 +17,8 @@ public class ETHManager : MonoBehaviour
         SpawnETH(30);
     }
 
-    void Update() {
-        if (numOfETH == 0) {
+    public void Update() {
+        if (numOfETH < 5) {
             SpawnETH(30);
         }
     }

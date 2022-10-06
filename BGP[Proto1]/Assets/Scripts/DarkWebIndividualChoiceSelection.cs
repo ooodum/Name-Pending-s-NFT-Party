@@ -19,7 +19,11 @@ public class DarkWebIndividualChoiceSelection : MonoBehaviour
     public NFTInfo thisNFT;
     public int thisNFTIndex;
     public float price;
+    public Color thisBG;
 
+    private void Start() {
+        thisBG = transform.GetChild(1).GetComponent<Image>().color;
+    }
 
     public void RefreshDarkWebSelection() {
         int tempRandom = Random.Range(0, DWP.availableNFTs.Count);

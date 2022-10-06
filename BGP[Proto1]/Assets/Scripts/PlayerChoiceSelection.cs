@@ -17,14 +17,23 @@ public class PlayerChoiceSelection : MonoBehaviour {
     [SerializeField] NFTManager NFTManager;
     [SerializeField] ShopManager shopManager;
     [SerializeField] BlackWebAnims BWAnims;
-
+    [SerializeField] BlackWebChoiceSelection BWCS;
+ 
     private bool sold1;
     private bool sold2;
     private bool sold3;
+
+    Vector2 container1Pos;
+    Vector2 container2Pos;
+    Vector2 container3Pos;
     private void Start() {
         if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
         if (container2.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
         if (container3.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+
+        container1Pos = container1.anchoredPosition;
+        container2Pos = container2.anchoredPosition;
+        container3Pos = container3.anchoredPosition;
     }
     private void Update() {
         if (!shopManager.darkWebOn && shopManager.shopOpen) {
@@ -97,10 +106,12 @@ public class PlayerChoiceSelection : MonoBehaviour {
                                     sold1 = true;
                                 } else {
                                     LeanTween.cancel(container1.gameObject);
+                                    container1.anchoredPosition = new Vector3(-380, -85, 0);
                                     LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                                 }
                             } else {
                                 LeanTween.cancel(container1.gameObject);
+                                container1.anchoredPosition = new Vector3(-380, -85, 0);
                                 LeanTween.move(container1.GetComponent<RectTransform>(), container1.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                             }
                             break;
@@ -119,10 +130,12 @@ public class PlayerChoiceSelection : MonoBehaviour {
                                     sold2 = true;
                                 } else {
                                     LeanTween.cancel(container2.gameObject);
+                                    container2.anchoredPosition = container2Pos;
                                     LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                                 }
                             } else {
                                 LeanTween.cancel(container2.gameObject);
+                                container2.anchoredPosition = container2Pos;
                                 LeanTween.move(container2.GetComponent<RectTransform>(), container2.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
 
                             }
@@ -142,10 +155,12 @@ public class PlayerChoiceSelection : MonoBehaviour {
                                     sold3 = true;
                                 } else {
                                     LeanTween.cancel(container3.gameObject);
+                                    container3.anchoredPosition = container3Pos;
                                     LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                                 }
                             } else {
                                 LeanTween.cancel(container3.gameObject);
+                                container3.anchoredPosition = container3Pos;
                                 LeanTween.move(container3.GetComponent<RectTransform>(), container3.GetComponent<RectTransform>().anchoredPosition + (Vector2.right * 5), 0.05f).setLoopPingPong(3).setEaseInOutCirc();
                             }
                             break;
@@ -160,6 +175,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                 }
                 if (Input.GetKeyDown(KeyCode.B)) {
                     BWAnims.AnimIn();
+                    BWCS.ActivateChoiceSelection();
                 }
                 currentChoice = Mathf.Clamp(currentChoice, 1, 3);
             }
