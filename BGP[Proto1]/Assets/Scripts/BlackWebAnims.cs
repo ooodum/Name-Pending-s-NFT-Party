@@ -82,12 +82,24 @@ public class BlackWebAnims : MonoBehaviour {
             shopManager.AnimTextTransparency(container3.GetChild(2).GetComponent<TextMeshProUGUI>(), 1, 0, 0.2f, 0.2f);
             shopManager.AnimTextTransparency(container3.GetChild(3).GetComponent<TextMeshProUGUI>(), 1, 0, 0.2f, 0.2f);
 
+            LeanTween.cancel(container1);
+            LeanTween.cancel(container2);
+            LeanTween.cancel(container3);
+
+            container1.GetChild(4).gameObject.SetActive(false);
+            container2.GetChild(4).gameObject.SetActive(false);
+            container3.GetChild(4).gameObject.SetActive(false);
+
+            container1.GetChild(5).gameObject.SetActive(false);
+            container2.GetChild(5).gameObject.SetActive(false);
+            container3.GetChild(5).gameObject.SetActive(false);
+
             BWCS.canSelect = false;
             LeanTween.scale(gameObject.GetComponent<RectTransform>(), Vector2.one, 0.5f).setOnComplete(TurnOffDarkWeb);
         }
     }
 
-    void CancelAnims() {
+    public void CancelAnims() {
         LeanTween.cancel(gameObject);
         LeanTween.cancel(title.gameObject);
         LeanTween.cancel(ETHtext.gameObject);
@@ -98,20 +110,28 @@ public class BlackWebAnims : MonoBehaviour {
         LeanTween.cancel(container1.GetChild(1).gameObject);
         LeanTween.cancel(container1.GetChild(2).gameObject);
         LeanTween.cancel(container1.GetChild(3).gameObject);
+        LeanTween.cancel(container1.GetChild(4).gameObject);
+        LeanTween.cancel(container1.GetChild(5).gameObject);
 
         LeanTween.cancel(container2.GetChild(0).gameObject);
         LeanTween.cancel(container2.GetChild(1).gameObject);
         LeanTween.cancel(container2.GetChild(2).gameObject);
         LeanTween.cancel(container2.GetChild(3).gameObject);
+        LeanTween.cancel(container2.GetChild(4).gameObject);
+        LeanTween.cancel(container2.GetChild(5).gameObject);
 
         LeanTween.cancel(container3.GetChild(0).gameObject);
         LeanTween.cancel(container3.GetChild(1).gameObject);
         LeanTween.cancel(container3.GetChild(2).gameObject);
         LeanTween.cancel(container3.GetChild(3).gameObject);
+        LeanTween.cancel(container3.GetChild(4).gameObject);
+        LeanTween.cancel(container3.GetChild(5).gameObject);
     }
 
     public void SetInvis() {
-        shopManager.AnimImageTransparency(gameObject.GetComponent<Image>(), 1, 0, 0, 0);
+        lastAnim = "SetInvis";
+        CancelAnims();
+        shopManager.AnimImageTransparency(gameObject.GetComponent<Image>(), gameObject.GetComponent<Image>().color.a, 0, 0.5f, 0);
         shopManager.AnimTextTransparency(title, 1, 0, 0, 0);   
         shopManager.AnimTextTransparency(ETHtext, 1, 0, 0, 0);   
         shopManager.AnimTextTransparency(subtitle, 1, 0, 0, 0);   
@@ -131,6 +151,15 @@ public class BlackWebAnims : MonoBehaviour {
         shopManager.AnimImageTransparency(container3.GetChild(1).GetComponent<Image>(), 1, 0, 0, 0);
         shopManager.AnimTextTransparency(container3.GetChild(2).GetComponent<TextMeshProUGUI>(), 1, 0, 0, 0);
         shopManager.AnimTextTransparency(container3.GetChild(3).GetComponent<TextMeshProUGUI>(), 1, 0, 0, 0);
+
+
+        container1.GetChild(4).gameObject.SetActive(false);
+        container2.GetChild(4).gameObject.SetActive(false);
+        container3.GetChild(4).gameObject.SetActive(false);
+
+        container1.GetChild(5).gameObject.SetActive(false);
+        container2.GetChild(5).gameObject.SetActive(false);
+        container3.GetChild(5).gameObject.SetActive(false);
     }
 
     public void TurnOnDarkWeb() {

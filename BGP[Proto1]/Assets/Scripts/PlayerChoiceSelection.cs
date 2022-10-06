@@ -80,37 +80,12 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         }
                         break;
                 }
-
-                if (Input.GetKeyDown(KeyCode.Space)) {
-                    canSelect = false;
-                    lastChoice = 0;
-                    currentChoice = 0;
-                    shopManager.shopOpen = false;
-
-                    LeanTween.cancel(container1);
-                    LeanTween.cancel(container2);
-                    LeanTween.cancel(container3);
-
-                    BWAnims.SetInvis();
-
-                    if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-                    if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-                    if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
-
-                    container1.GetChild(4).gameObject.SetActive(false);
-                    container2.GetChild(4).gameObject.SetActive(false);
-                    container3.GetChild(4).gameObject.SetActive(false);
-
-                    container1.GetChild(5).gameObject.SetActive(false);
-                    container2.GetChild(5).gameObject.SetActive(false);
-                    container3.GetChild(5).gameObject.SetActive(false);
-                }
                 if (Input.GetKeyDown(KeyCode.Return)) {
                     switch (currentChoice) {
                         case 1:
                             if (!sold1) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container1.GetComponent<ShopSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container1.GetComponent<ShopSelection>().price);
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = (Mathf.Round(turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container1.GetComponent<ShopSelection>().price)) * 100) / 100;
 
                                     NFTManager.NFTList[container1.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -132,7 +107,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         case 2:
                             if (!sold2) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container2.GetComponent<ShopSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container2.GetComponent<ShopSelection>().price);
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = (Mathf.Round(turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container2.GetComponent<ShopSelection>().price)) * 100) / 100;
 
                                     NFTManager.NFTList[container2.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -155,7 +130,7 @@ public class PlayerChoiceSelection : MonoBehaviour {
                         case 3:
                             if (!sold3) {
                                 if (turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH >= container3.GetComponent<ShopSelection>().price) {
-                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH -= (container3.GetComponent<ShopSelection>().price);
+                                    turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH = (Mathf.Round(turnManager.PlayerChildren[turnManager.turn - 1].GetComponent<PlayerETHManager>().ETH - (container3.GetComponent<ShopSelection>().price))*100)/100;
 
                                     NFTManager.NFTList[container3.GetComponent<ShopSelection>().thisNFTIndex].owner = turnManager.PlayerChildren[turnManager.turn - 1];
 
@@ -187,6 +162,33 @@ public class PlayerChoiceSelection : MonoBehaviour {
                     BWAnims.AnimIn();
                 }
                 currentChoice = Mathf.Clamp(currentChoice, 1, 3);
+            }
+        }
+        if (shopManager.shopOpen) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                canSelect = false;
+                lastChoice = 0;
+                currentChoice = 0;
+                shopManager.shopOpen = false;
+                shopManager.darkWebOn = false;
+
+                LeanTween.cancel(container1);
+                LeanTween.cancel(container2);
+                LeanTween.cancel(container3);
+
+                BWAnims.SetInvis();
+
+                if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container1.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+                if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+                if (container1.GetChild(5).gameObject.activeSelf) LeanTween.scale(container2.GetChild(5).GetComponent<RectTransform>(), Vector3.one * 0.9f, 0).setEaseOutElastic();
+
+                container1.GetChild(4).gameObject.SetActive(false);
+                container2.GetChild(4).gameObject.SetActive(false);
+                container3.GetChild(4).gameObject.SetActive(false);
+
+                container1.GetChild(5).gameObject.SetActive(false);
+                container2.GetChild(5).gameObject.SetActive(false);
+                container3.GetChild(5).gameObject.SetActive(false);
             }
         }
     }

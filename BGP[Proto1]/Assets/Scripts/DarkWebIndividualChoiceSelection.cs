@@ -26,8 +26,8 @@ public class DarkWebIndividualChoiceSelection : MonoBehaviour
         int tempIndex = 0;
         if (DWP.availableNFTs.Count != 0) {
             thisNFT = DWP.availableNFTs[tempRandom];
+            NFTImage.color = new Color(1, 1, 1, 0);
             NFTImage.sprite = thisNFT.sprite;
-            print(NFTImage.sprite);
             title.text = $"{thisNFT.collection} #0{thisNFT.ID}";
             price = setNFTPrice(thisNFT.collection);
             priceTag.text = $"{price} ETH";
@@ -40,6 +40,7 @@ public class DarkWebIndividualChoiceSelection : MonoBehaviour
             DWP.availableNFTs.RemoveAt(tempRandom);
         } else if (DWP.availableNFTs.Count == 0) {
             NFTImage.color = new Color(0, 0, 0, 0);
+            price = Mathf.Infinity;
             title.text = "NOT AVAILABLE";
             priceTag.text = $">>><<<";
         }
@@ -58,7 +59,7 @@ public class DarkWebIndividualChoiceSelection : MonoBehaviour
             case "Uncle Bob":
                 return 3 * (Mathf.Round((Random.Range(1, 2f)) * 100) / 100);
             default:
-                return 482910.3721f;
+                return Mathf.Infinity;
 
         }
     }
